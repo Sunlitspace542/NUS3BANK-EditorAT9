@@ -7,7 +7,7 @@ if six.PY3:
     from tkinter.filedialog import *
     import tkinter.font as tkFont
     import tkinter.messagebox as tkMessageBox
-    from configparser import SafeConfigParser
+    from configparser import ConfigParser
     print (u"Python3 imports")
 else:
     from Tkinter import *
@@ -49,6 +49,7 @@ appName = u"NUS3BANK Editor (Sony AT9 fork) " + appVer
 # directory where application files are stored
 n3beDir = xis.decode(os.path.dirname(os.path.realpath(__file__)))
 
+'''
 # check at9tool
 at9check = os.path.join(os.path.join(n3beDir,u'exeLib'), u'at9tool.exe')
 at9ver1 = "866a23cc89c7d4bc9d4f90167be1ae68d6498a3703ddecc377da8f84840a2375"
@@ -68,6 +69,7 @@ elif at9ver2 == sha_returned:
 else:
     print (u"at9tool verification failed. Closing program.")
     sys.exit()
+'''
 
 # exe dependencies
 vgmstream = u'"' + os.path.join(os.path.join(n3beDir,u'exeLib'), u'vgmstream.exe') + u'"'
@@ -625,7 +627,7 @@ def on_exit():
     exit()
 
     
-timeRefPathLabel = time.clock()
+timeRefPathLabel = time.perf_counter()
 def reactOnResize(event):
     global timeRefPathLabel
     try:
@@ -634,9 +636,9 @@ def reactOnResize(event):
         return
     if not os.path.isfile(nusPath):
         return
-    if time.clock()-timeRefPathLabel<0.1:
+    if time.perf_counter()-timeRefPathLabel<0.1:
         return
-    timeRefPathLabel = time.clock()
+    timeRefPathLabel = time.perf_counter()
     pathLabel.config(text=adaptLength(nusPath,event.width))
 
 # global songs
